@@ -1,0 +1,44 @@
+Steps to implement web server:
+
+1. First of all you have to install CENT OS in your computer.
+2. Next, you have to install Apache server using command:
+    # yum install httpd -y
+    
+3. Start the apache server using the command:
+    # service httpd restart
+4. After this command you will get a folder in /var/www/html . This "html" folder is the new created one.
+5. Make a new directory inside "html", let say "website1" using command:
+    # mkdir /var/www/html/website1 
+6. Make an index file inside it using command:
+    # echo "This is the website1" >> /var/www/html/website1/index.html
+
+NOW IF YOU WANT TO IMPLEMENT VIRTUAL HOSTING ALSO TRY THIS OUT:
+7. Make a new folder and follow above procedures for it.
+
+8. Make an entry in " /etc/httpd/conf/httpd.conf " file:
+  Uncommment the line: 
+  
+  NameVirtualHost *:80
+  
+  <VirtualHost *:80>
+  ServerRoot root@website1.local
+  DocumentRoot /var/www/html/website1
+  ServerName www.website1.com     //This is the domain name of your 1st website
+  </VirtualHost>
+  
+  <VirtualHost *:80>
+  ServerRoot root@website2.local
+  DocumentRoot /var/www/html/website2
+  ServerName www.website2.com     //This is the domain name of your 2nd website
+  </VirtualHost>
+  
+  save this file.....
+  
+9. Make entry in /etc/hosts file:
+    # <your local ip or type 127.0.0.1 > www.website1.local
+    # 127.0.0.1 www.website2.local
+    
+    Save the file
+    
+10. # service httpd restart
+11. Now your website is active try typing in your web browser : www.website1.local
